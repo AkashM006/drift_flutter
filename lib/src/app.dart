@@ -1,3 +1,4 @@
+import 'package:drift_flutter/src/core/constants/settings.dart';
 import 'package:drift_flutter/src/core/constants/size.dart';
 import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,20 @@ class App extends StatelessWidget {
 
     return MaterialApp.router(
       routerConfig: router,
+      themeMode: ThemeMode.system,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: seedColor,
+        ),
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: seedColor,
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
     );
   }
 }

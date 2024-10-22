@@ -1,4 +1,5 @@
 import 'package:drift_flutter/src/core/constants/size.dart';
+import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -8,6 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
-    return Container();
+    return MaterialApp.router(
+      routerConfig: router,
+    );
   }
 }

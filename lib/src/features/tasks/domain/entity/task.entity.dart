@@ -10,8 +10,8 @@ abstract class TaskEntity {
   });
 
   TaskEntity copyWith({
-    int id,
-    String name,
-    String description,
+    int? id,
+    String? name,
+    String? description,
   });
 }

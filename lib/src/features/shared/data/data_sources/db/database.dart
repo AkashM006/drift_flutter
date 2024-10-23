@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:drift/drift.dart';
+import 'package:drift_flutter/src/features/tasks/data/data_sources/local/dao/task.dao.dart';
+import 'package:drift_flutter/src/features/tasks/data/data_sources/local/schema/task.schema.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 // ignore: depend_on_referenced_packages
@@ -14,10 +16,11 @@ part 'database.g.dart';
 
 @DriftDatabase(
   tables: [
-    // list of all tables used in the project
+    Tasks,
   ],
   daos: [
     // list of all daos used in the project
+    TaskDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {

@@ -1,32 +1,25 @@
 import 'package:drift_flutter/src/core/utils/custom_error.util.dart';
 
-abstract class DataState<T> {
-  final T? data;
-  final CustomError? error;
-  final bool isLoading;
-
-  const DataState({
-    this.data,
-    this.error,
-    this.isLoading = false,
-  });
-  C fold<C>(
-    C Function(T? data) onSuccess,
-    C Function(CustomError error) onFailure,
-  ) {
-    if (this.error != null) return onFailure(this.error!);
-    return onSuccess(data);
-  }
-}
+abstract class DataState<T> {}
 
 class DataSuccess<T> extends DataState<T> {
-  const DataSuccess({required T data}) : super(data: data);
+  final T data;
+  DataSuccess(this.data);
 }
 
 class DataFailure<T> extends DataState<T> {
-  const DataFailure({required CustomError error}) : super(error: error);
+  final CustomError error;
+  DataFailure(this.error);
 }
 
-class DataLoading extends DataState {
-  const DataLoading() : super(isLoading: true);
+extension DataStateExtension<T> on DataState<T> {
+  R fold<R>({
+    required R Function(T data) onSuccess,
+    required R Function(CustomError error) onFailure,
+  }) {
+    if (this is DataSuccess<T>) {
+      return onSuccess((this as DataSuccess<T>).data);
+    }
+    return onFailure((this as DataFailure<T>).error);
+  }
 }

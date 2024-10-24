@@ -1,4 +1,4 @@
-import 'package:drift_flutter/src/features/home/presentation/home.screen.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/tasks.screen.dart';
 import 'package:drift_flutter/src/features/users/presentation/users.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +30,7 @@ extension AppRoutesExtension on PAGES {
   Widget Function(BuildContext context, GoRouterState routerState) get builder {
     switch (this) {
       case PAGES.home:
-        return (context, routerState) => const HomeScreen();
+        return (context, routerState) => const TasksScreen();
       case PAGES.users:
         return (context, routerState) => const UsersScreen();
     }

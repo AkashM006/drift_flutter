@@ -1,21 +1,29 @@
 import 'package:drift_flutter/src/features/home/presentation/home.screen.dart';
+import 'package:drift_flutter/src/features/users/presentation/users.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum PAGES { home }
+enum PAGES {
+  home,
+  users,
+}
 
 extension AppRoutesExtension on PAGES {
   String get path {
     switch (this) {
       case PAGES.home:
         return '/';
+      case PAGES.users:
+        return '/users';
     }
   }
 
   String get name {
     switch (this) {
       case PAGES.home:
-        return "Home";
+        return "Tasks";
+      case PAGES.users:
+        return "Users";
     }
   }
 
@@ -23,6 +31,8 @@ extension AppRoutesExtension on PAGES {
     switch (this) {
       case PAGES.home:
         return (context, routerState) => const HomeScreen();
+      case PAGES.users:
+        return (context, routerState) => const UsersScreen();
     }
   }
 }

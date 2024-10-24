@@ -2,17 +2,17 @@ import 'package:drift_flutter/src/features/shared/presentation/widgets/bottom_na
 import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class UsersScreen extends StatelessWidget {
+  const UsersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("Home"),
+        child: Text("Users"),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
-        currentPage: PAGES.home,
+        currentPage: PAGES.users,
       ),
     );
   }

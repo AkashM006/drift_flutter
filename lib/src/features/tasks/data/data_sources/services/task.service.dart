@@ -22,6 +22,10 @@ class TaskService {
         )
         .toList();
   }
+
+  Future<void> addTask(TaskModel task) {
+    return _db.taskDao.addTask(task);
+  }
 }
 
 @riverpod

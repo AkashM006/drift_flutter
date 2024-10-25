@@ -1,17 +1,11 @@
-abstract class TaskEntity {
-  int get id;
-  String get name;
-  String get description;
+class TaskEntity {
+  final int id;
+  final String name;
+  final String description;
 
   const TaskEntity({
-    required int id,
-    required String name,
-    required String description,
-  });
-
-  TaskEntity copyWith({
-    int? id,
-    String? name,
-    String? description,
+    required this.id,
+    required this.name,
+    required this.description,
   });
 }

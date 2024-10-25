@@ -1,33 +1,45 @@
 import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';
 
-class TaskModel extends TaskEntity {
+class TaskModel {
   final int _id;
   final String _name;
   final String _description;
 
   TaskModel({
-    required super.id,
-    required super.name,
-    required super.description,
+    required id,
+    required name,
+    required description,
   })  : _id = id,
         _name = name,
         _description = description;
 
-  @override
-  TaskEntity copyWith({int? id, String? name, String? description}) {
+  TaskModel copyWith({int? id, String? name, String? description}) {
     return TaskModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      description: description ?? this.description,
+      id: id ?? _id,
+      name: name ?? _name,
+      description: description ?? _description,
     );
   }
 
-  @override
+  TaskEntity toEntity() {
+    return TaskEntity(
+      id: _id,
+      name: _name,
+      description: _description,
+    );
+  }
+
+  factory TaskModel.fromEntity(TaskEntity taskEntity) {
+    return TaskModel(
+      id: taskEntity.id,
+      name: taskEntity.name,
+      description: taskEntity.description,
+    );
+  }
+
   String get description => _description;
 
-  @override
   int get id => _id;
 
-  @override
   String get name => _name;
 }

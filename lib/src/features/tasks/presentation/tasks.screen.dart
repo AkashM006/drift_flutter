@@ -6,6 +6,7 @@ import 'package:drift_flutter/src/features/tasks/presentation/providers/get_task
 import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class TasksScreen extends ConsumerWidget {
   const TasksScreen({super.key});
@@ -13,6 +14,10 @@ class TasksScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tasks = ref.watch(getTasksProvider);
+
+    void handleCreate() {
+      context.push(PAGES.taskCreate.path);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -22,6 +27,10 @@ class TasksScreen extends ConsumerWidget {
       ),
       bottomNavigationBar: const BottomNavigationBarWidget(
         currentPage: PAGES.home,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: handleCreate,
+        child: const Icon(Icons.add),
       ),
       body: Center(
         child: tasks.when(

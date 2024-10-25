@@ -1,3 +1,4 @@
+import 'package:drift_flutter/src/features/tasks/presentation/new_task.screen.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/tasks.screen.dart';
 import 'package:drift_flutter/src/features/users/presentation/users.screen.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:go_router/go_router.dart';
 enum PAGES {
   home,
   users,
+  taskCreate,
 }
 
 extension AppRoutesExtension on PAGES {
@@ -15,6 +17,8 @@ extension AppRoutesExtension on PAGES {
         return '/';
       case PAGES.users:
         return '/users';
+      case PAGES.taskCreate:
+        return '/new-task';
     }
   }
 
@@ -24,6 +28,8 @@ extension AppRoutesExtension on PAGES {
         return "Tasks";
       case PAGES.users:
         return "Users";
+      case PAGES.taskCreate:
+        return "New Task";
     }
   }
 
@@ -33,6 +39,8 @@ extension AppRoutesExtension on PAGES {
         return (context, routerState) => const TasksScreen();
       case PAGES.users:
         return (context, routerState) => const UsersScreen();
+      case PAGES.taskCreate:
+        return (context, routerState) => const NewTaskScreen();
     }
   }
 }

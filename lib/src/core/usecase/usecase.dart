@@ -1,3 +1,3 @@
 abstract class Usecase<Type, Params> {
-  Type call({Params params});
+  Type call({required Params params});
 }

@@ -1,3 +1,4 @@
+import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/tasks/data/data_sources/services/task.service.dart';
 import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';
 import 'package:drift_flutter/src/features/tasks/domain/repository/task.repository.dart';
@@ -13,6 +14,12 @@ class TaskImpl implements TaskRepository {
   @override
   Future<List<TaskEntity>> getTasks() {
     return _taskService.getTasks();
+  }
+
+  @override
+  Future<DataState<void>> addTask() {
+    // TODO: implement addTask
+    throw UnimplementedError();
   }
 }
 

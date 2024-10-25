@@ -12,6 +12,8 @@ class DataFailure<T> extends DataState<T> {
   DataFailure(this.error);
 }
 
+class DataLoading<T> extends DataState<T> {}
+
 extension DataStateExtension<T> on DataState<T> {
   R fold<R>({
     required R Function(T data) onSuccess,

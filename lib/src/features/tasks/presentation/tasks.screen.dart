@@ -3,6 +3,7 @@ import 'package:drift_flutter/src/features/shared/presentation/widgets/bottom_na
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_error/custom_error.widget.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_loader/custom_loader.widget.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/widgets/tasks/tasks_list.widget.dart';
 import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,7 +50,8 @@ class TasksScreen extends ConsumerWidget {
                 ),
               );
             }
-            return const Text("Success");
+
+            return TasksListWidget(taskList: data);
           },
           error: (error, stackTrace) =>
               CustomErrorWidget(text: error.toString()),

@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task_impl.repository.g.dart';
 
-class TaskImpl extends BaseRepository implements TaskRepository {
+class TaskImpl extends BaseDbRepository implements TaskRepository {
   final TaskService _taskService;
 
   TaskImpl(this._taskService);

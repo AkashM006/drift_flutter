@@ -1,5 +1,5 @@
 import 'package:drift_flutter/src/core/utils/data_state.util.dart';
-import 'package:drift_flutter/src/features/shared/data/repository/base.repository.dart';
+import 'package:drift_flutter/src/features/shared/data/repository/base_db.repository.dart';
 import 'package:drift_flutter/src/features/tasks/data/data_sources/services/task.service.dart';
 import 'package:drift_flutter/src/features/tasks/data/model/task.model.dart';
 import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';

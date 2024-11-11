@@ -1,6 +1,6 @@
 import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/snackbar/snackbar.widget.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/providers/add_task.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/add_task/add_task.provider.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/widgets/new_task/new_task_form.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -2,7 +2,7 @@ import 'package:drift_flutter/src/core/constants/size.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/bottom_navigation_bar/bottom_navigation_bar.widget.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_error/custom_error.widget.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_loader/custom_loader.widget.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks/get_tasks.provider.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/widgets/tasks/tasks_list.widget.dart';
 import 'package:drift_flutter/src/routing/router.dart';
 import 'package:flutter/material.dart';

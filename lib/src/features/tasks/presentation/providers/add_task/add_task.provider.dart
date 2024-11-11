@@ -2,7 +2,7 @@ import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/tasks/data/repository/task_impl.repository.dart';
 import 'package:drift_flutter/src/features/tasks/domain/usecase/add_task.usecase.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/dto/task.dto.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks/get_tasks.provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_task.provider.g.dart';

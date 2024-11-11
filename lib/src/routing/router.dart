@@ -1,4 +1,5 @@
 import 'package:drift_flutter/src/features/tasks/presentation/new_task.screen.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/task_detail.screen.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/tasks.screen.dart';
 import 'package:drift_flutter/src/features/users/presentation/users.screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ enum PAGES {
   home,
   users,
   taskCreate,
+  taskDetail,
 }
 
 extension AppRoutesExtension on PAGES {
@@ -19,6 +21,8 @@ extension AppRoutesExtension on PAGES {
         return '/users';
       case PAGES.taskCreate:
         return '/new-task';
+      case PAGES.taskDetail:
+        return '/task-detail';
     }
   }
 
@@ -30,6 +34,8 @@ extension AppRoutesExtension on PAGES {
         return "Users";
       case PAGES.taskCreate:
         return "New Task";
+      case PAGES.taskDetail:
+        return "Task Detail";
     }
   }
 
@@ -41,6 +47,14 @@ extension AppRoutesExtension on PAGES {
         return (context, routerState) => const UsersScreen();
       case PAGES.taskCreate:
         return (context, routerState) => const NewTaskScreen();
+      case PAGES.taskDetail:
+        return (context, routerState) {
+          final id = routerState.uri.queryParameters['id'];
+          int? idResult;
+          if (id != null) idResult = int.tryParse(id);
+
+          return TaskDetailScreen(id: idResult);
+        };
     }
   }
 }

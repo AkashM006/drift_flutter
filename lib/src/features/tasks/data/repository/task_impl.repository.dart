@@ -27,8 +27,9 @@ class TaskImpl extends BaseDbRepository implements TaskRepository {
 
   @override
   Future<DataState<TaskEntity>> getTask(int id) {
-    // TODO: implement getTask
-    throw UnimplementedError();
+    return safeExecute(
+      () => _taskService.getTask(id),
+    );
   }
 }
 

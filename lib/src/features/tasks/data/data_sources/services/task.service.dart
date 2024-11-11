@@ -23,6 +23,11 @@ class TaskService {
   Future<void> addTask(TaskEntity task) {
     return _db.taskDao.addTask(TaskModel.fromEntity(task));
   }
+
+  Future<TaskEntity> getTask(int id) async {
+    final result = await _db.taskDao.getTask(id);
+    return result.toEntity();
+  }
 }
 
 @riverpod

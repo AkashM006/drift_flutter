@@ -45,6 +45,7 @@ class TaskDto {
     String? description,
   }) {
     return TaskDto(
+      id: id,
       name: name ?? _name,
       description: description ?? _description,
     );

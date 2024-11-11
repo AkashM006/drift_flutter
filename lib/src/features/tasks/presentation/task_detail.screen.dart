@@ -1,6 +1,9 @@
 import 'package:drift_flutter/src/core/constants/app_offsets.dart';
+import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/async_value_builder/async_value_builder.widget.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_appbar/custom_appbar.widget.dart';
+import 'package:drift_flutter/src/features/shared/presentation/widgets/snackbar/snackbar.widget.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/edit_task/edit_task.provider.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/providers/get_task/get_task.provider.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/widgets/new_task/new_task_form.widget.dart';
 import 'package:drift_flutter/src/routing/router.dart';
@@ -51,6 +54,21 @@ class TaskDetailScreen extends ConsumerWidget {
     }
 
     final task = ref.watch(getTaskProvider(id!));
+
+    ref.listen(
+      editTaskProvider,
+      (previous, next) {
+        next?.on(
+          success: (data) {
+            showSnackBar(context, data);
+            context.pop();
+          },
+          failed: (error) {
+            showSnackBar(context, error.toString());
+          },
+        );
+      },
+    );
 
     return Scaffold(
       appBar: CustomAppbarWidget(

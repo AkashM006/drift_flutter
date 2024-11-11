@@ -3,6 +3,7 @@ import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_loader/custom_loader.widget.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/dto/task.dto.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/providers/add_task/add_task.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/edit_task/edit_task.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,12 +26,22 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
 
   bool get isEdit => widget.task != null;
 
+  bool get isSubmitedEnabled {
+    if (!isEdit) return true;
+
+    return task != widget.task!;
+  }
+
   void handleSubmit() {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
     _formKey.currentState!.save();
+
+    if (isEdit) {
+      ref.read(editTaskProvider.notifier).go(task);
+    }
 
     ref.read(addTaskProvider.notifier).go(task);
   }
@@ -43,13 +54,23 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
     }
   }
 
+  void setName(String? newValue) {
+    task = task.copyWith(name: newValue);
+  }
+
+  void setDescription(String? newValue) {
+    task = task.copyWith(description: newValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     final addTaskStatus = ref.watch(addTaskProvider);
+    final editTaskState = ref.watch(editTaskProvider);
 
-    final isAddLoading = addTaskStatus != null && addTaskStatus is DataLoading;
+    final isAddLoading = addTaskStatus?.isLoading ?? false;
+    final isEditLoading = editTaskState?.isLoading ?? false;
 
-    final isLoading = isAddLoading;
+    final isLoading = isAddLoading || isEditLoading;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
@@ -72,8 +93,11 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
                   }
                   return null;
                 },
-                onSaved: (newValue) {
-                  task = task.copyWith(name: newValue);
+                onSaved: setName,
+                onChanged: (value) {
+                  setState(() {
+                    setName(value);
+                  });
                 },
                 initialValue: task.name,
               ),
@@ -93,8 +117,11 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
                 },
                 enabled: !isLoading,
                 textCapitalization: TextCapitalization.sentences,
-                onSaved: (newValue) {
-                  task = task.copyWith(description: newValue);
+                onSaved: setDescription,
+                onChanged: (value) {
+                  setState(() {
+                    setDescription(value);
+                  });
                 },
                 initialValue: task.description,
               ),
@@ -104,7 +131,7 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
               isLoading
                   ? const CustomLoaderWidget()
                   : FilledButton(
-                      onPressed: isLoading ? null : handleSubmit,
+                      onPressed: isSubmitedEnabled ? handleSubmit : null,
                       child: const Text("Submit"),
                     ),
             ],

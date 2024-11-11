@@ -28,6 +28,10 @@ class TaskService {
     final result = await _db.taskDao.getTask(id);
     return result.toEntity();
   }
+
+  Future<void> updateTask(TaskEntity newTask) {
+    return _db.taskDao.updateTask(TaskModel.fromEntity(newTask));
+  }
 }
 
 @riverpod

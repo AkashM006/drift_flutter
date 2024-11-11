@@ -1,6 +1,6 @@
-import 'package:drift/drift.dart';
 import 'package:drift_flutter/src/features/shared/data/data_sources/db/database.dart';
 import 'package:drift_flutter/src/features/tasks/data/model/task.model.dart';
+import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task.service.g.dart';
@@ -10,25 +10,18 @@ class TaskService {
 
   TaskService(this._db);
 
-  Future<List<TaskModel>> getTasks() async {
+  Future<List<TaskEntity>> getTasks() async {
     final result = await _db.taskDao.getTasks();
 
     return result
         .map(
-          (task) => TaskModel(
-            id: task.id,
-            name: task.name,
-            description: task.description,
-          ),
+          (task) => task.toEntity(),
         )
         .toList();
   }
 
-  Future<void> addTask(TaskModel task) {
-    return _db.taskDao.addTask(TasksCompanion(
-      name: Value(task.name),
-      description: Value(task.description),
-    ));
+  Future<void> addTask(TaskEntity task) {
+    return _db.taskDao.addTask(TaskModel.fromEntity(task));
   }
 }
 

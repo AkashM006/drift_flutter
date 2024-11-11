@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+import 'package:drift_flutter/src/features/shared/data/data_sources/db/database.dart';
 import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';
 
 class TaskModel {
@@ -13,21 +15,11 @@ class TaskModel {
         _name = name,
         _description = description;
 
-  TaskModel copyWith({int? id, String? name, String? description}) {
-    return TaskModel(
-      id: id ?? _id,
-      name: name ?? _name,
-      description: description ?? _description,
-    );
-  }
+  String get description => _description;
 
-  TaskEntity toEntity() {
-    return TaskEntity(
-      id: _id,
-      name: _name,
-      description: _description,
-    );
-  }
+  int get id => _id;
+
+  String get name => _name;
 
   factory TaskModel.fromEntity(TaskEntity taskEntity) {
     return TaskModel(
@@ -37,9 +29,26 @@ class TaskModel {
     );
   }
 
-  String get description => _description;
+  factory TaskModel.fromDbModel(Task task) {
+    return TaskModel(
+      id: task.id,
+      name: task.name,
+      description: task.description,
+    );
+  }
 
-  int get id => _id;
+  TasksCompanion toCompanion() {
+    return TasksCompanion(
+      name: Value(name),
+      description: Value(description),
+    );
+  }
 
-  String get name => _name;
+  TaskEntity toEntity() {
+    return TaskEntity(
+      id: id,
+      name: name,
+      description: description,
+    );
+  }
 }

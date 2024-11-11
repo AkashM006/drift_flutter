@@ -7,7 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NewTaskFormWidget extends ConsumerStatefulWidget {
-  const NewTaskFormWidget({super.key});
+  const NewTaskFormWidget({
+    super.key,
+    this.task,
+  });
+
+  final TaskDto? task;
 
   @override
   ConsumerState<NewTaskFormWidget> createState() => _NewTaskFormWidgetState();
@@ -15,8 +20,10 @@ class NewTaskFormWidget extends ConsumerStatefulWidget {
 
 class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
   final _formKey = GlobalKey<FormState>();
-  String title = "";
-  String description = "";
+
+  TaskDto task = TaskDto.init();
+
+  bool get isEdit => widget.task != null;
 
   void handleSubmit() {
     if (!_formKey.currentState!.validate()) {
@@ -25,13 +32,15 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
 
     _formKey.currentState!.save();
 
-    final task = TaskDto(
-      id: -1,
-      name: title,
-      description: description,
-    );
-
     ref.read(addTaskProvider.notifier).go(task);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (isEdit) {
+      task = widget.task!;
+    }
   }
 
   @override
@@ -42,57 +51,65 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
 
     final isLoading = isAddLoading;
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(
-              label: Text("Title"),
-              border: OutlineInputBorder(),
-            ),
-            textCapitalization: TextCapitalization.sentences,
-            enabled: !isLoading,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Title is required";
-              }
-              return null;
-            },
-            onSaved: (newValue) {
-              title = newValue!;
-            },
-          ),
-          SizedBox(
-            height: SizeConfig.safeBlockVertical * 2,
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              label: Text("Description"),
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Description is required";
-              }
-              return null;
-            },
-            enabled: !isLoading,
-            textCapitalization: TextCapitalization.sentences,
-            onSaved: (newValue) {
-              description = newValue!;
-            },
-          ),
-          SizedBox(
-            height: SizeConfig.safeBlockVertical * 3,
-          ),
-          isLoading
-              ? const CustomLoaderWidget()
-              : FilledButton(
-                  onPressed: isLoading ? null : handleSubmit,
-                  child: const Text("Submit"),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  label: Text("Title"),
+                  border: OutlineInputBorder(),
                 ),
-        ],
+                textCapitalization: TextCapitalization.sentences,
+                enabled: !isLoading,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Title is required";
+                  }
+                  return null;
+                },
+                onSaved: (newValue) {
+                  task = task.copyWith(name: newValue);
+                },
+                initialValue: task.name,
+              ),
+              SizedBox(
+                height: SizeConfig.safeBlockVertical * 2,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  label: Text("Description"),
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Description is required";
+                  }
+                  return null;
+                },
+                enabled: !isLoading,
+                textCapitalization: TextCapitalization.sentences,
+                onSaved: (newValue) {
+                  task = task.copyWith(description: newValue);
+                },
+                initialValue: task.description,
+              ),
+              SizedBox(
+                height: SizeConfig.safeBlockVertical * 3,
+              ),
+              isLoading
+                  ? const CustomLoaderWidget()
+                  : FilledButton(
+                      onPressed: isLoading ? null : handleSubmit,
+                      child: const Text("Submit"),
+                    ),
+            ],
+          ),
+        ),
       ),
     );
   }

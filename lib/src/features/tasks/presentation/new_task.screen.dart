@@ -30,12 +30,9 @@ class NewTaskScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("New Task"),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
-          child: const NewTaskFormWidget(),
-        ),
+      body: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: const NewTaskFormWidget(),
       ),
     );
   }

@@ -1,16 +1,16 @@
 import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/tasks/data/repository/task_impl.repository.dart';
 import 'package:drift_flutter/src/features/tasks/domain/usecase/add_task.usecase.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/DTO/task.dto.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/dto/task.dto.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/providers/get_tasks.provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'new_task.provider.g.dart';
+part 'add_task.provider.g.dart';
 
 @riverpod
 class AddTask extends _$AddTask {
   @override
-  DataState<void>? build() {
+  DataState<String>? build() {
     return null;
   }
 
@@ -25,7 +25,7 @@ class AddTask extends _$AddTask {
     state = result.fold(
       onSuccess: (data) {
         ref.invalidate(getTasksProvider);
-        return DataSuccess(data);
+        return DataSuccess<String>("Successfully added a new task");
       },
       onFailure: (error) => DataFailure(error),
     );

@@ -1,5 +1,6 @@
 import 'package:drift_flutter/src/core/utils/data_state.util.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/providers/new_task.provider.dart';
+import 'package:drift_flutter/src/features/shared/presentation/widgets/snackbar/snackbar.widget.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/add_task.provider.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/widgets/new_task/new_task_form.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,25 +14,15 @@ class NewTaskScreen extends ConsumerWidget {
     ref.listen(
       addTaskProvider,
       (previous, next) {
-        if (next is DataLoading) return;
-
-        if (next is DataSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Added to your task"),
-            ),
-          );
-          context.pop();
-          return;
-        }
-
-        if (next is DataFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(next.toString()),
-            ),
-          );
-        }
+        next?.on(
+          success: (data) {
+            showSnackBar(context, data);
+            context.pop();
+          },
+          failed: (error) {
+            showSnackBar(context, error.toString());
+          },
+        );
       },
     );
 

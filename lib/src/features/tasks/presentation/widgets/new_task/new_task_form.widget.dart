@@ -1,8 +1,8 @@
 import 'package:drift_flutter/src/core/constants/size.dart';
 import 'package:drift_flutter/src/core/utils/data_state.util.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/custom_loader/custom_loader.widget.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/DTO/task.dto.dart';
-import 'package:drift_flutter/src/features/tasks/presentation/providers/new_task.provider.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/dto/task.dto.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/providers/add_task.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

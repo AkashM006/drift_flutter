@@ -1,4 +1,4 @@
-import 'package:drift_flutter/src/features/tasks/presentation/DTO/task.dto.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/dto/task.dto.dart';
 import 'package:flutter/material.dart';
 
 class TasksListWidget extends StatelessWidget {

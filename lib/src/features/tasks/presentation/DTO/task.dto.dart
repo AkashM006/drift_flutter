@@ -6,26 +6,24 @@ class TaskDto {
   final String description;
 
   TaskDto({
-    required this.id,
+    this.id = -1,
     required this.name,
     required this.description,
   });
-}
 
-class TaskDtoMapper {
-  static TaskDto fromEntity(TaskEntity entity) {
+  factory TaskDto.fromEntity(TaskEntity task) {
     return TaskDto(
-      id: entity.id,
-      name: entity.name,
-      description: entity.description,
+      id: task.id,
+      name: task.name,
+      description: task.description,
     );
   }
 
-  static TaskEntity toEntity(TaskDto object) {
+  TaskEntity toEntity() {
     return TaskEntity(
-      id: object.id,
-      name: object.name,
-      description: object.description,
+      id: id,
+      name: name,
+      description: description,
     );
   }
 }

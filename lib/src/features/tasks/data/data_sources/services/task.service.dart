@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:drift_flutter/src/features/shared/data/data_sources/db/database.dart';
 import 'package:drift_flutter/src/features/tasks/data/model/task.model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -24,7 +25,10 @@ class TaskService {
   }
 
   Future<void> addTask(TaskModel task) {
-    return _db.taskDao.addTask(task);
+    return _db.taskDao.addTask(TasksCompanion(
+      name: Value(task.name),
+      description: Value(task.description),
+    ));
   }
 }
 

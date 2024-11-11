@@ -27,10 +27,8 @@ class NewTaskScreen extends ConsumerWidget {
 
         if (next is DataFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                "Something went wrong when trying to add your task. Please try again later",
-              ),
+            SnackBar(
+              content: Text(next.toString()),
             ),
           );
         }

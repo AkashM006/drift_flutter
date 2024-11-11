@@ -31,7 +31,7 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
       description: description,
     );
 
-    ref.read(addTaskProvider.notifier).go(TaskDtoMapper.toEntity(task));
+    ref.read(addTaskProvider.notifier).go(task);
   }
 
   @override

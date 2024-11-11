@@ -1,4 +1,4 @@
-import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart';
+import 'package:drift_flutter/src/features/tasks/presentation/DTO/task.dto.dart';
 import 'package:flutter/material.dart';
 
 class TasksListWidget extends StatelessWidget {
@@ -7,7 +7,7 @@ class TasksListWidget extends StatelessWidget {
     required this.taskList,
   });
 
-  final List<TaskEntity> taskList;
+  final List<TaskDto> taskList;
 
   @override
   Widget build(BuildContext context) {

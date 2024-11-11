@@ -371,11 +371,11 @@ class $AppDatabaseManager {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dbHash() => r'37db6d043c1f5869ce58d7c69f904ab4cc2704d8';
+String _$dbHash() => r'22d1c827009ba0dfeb81c971dec957c5e4b52158';
 
 /// See also [db].
 @ProviderFor(db)
-final dbProvider = AutoDisposeProvider<AppDatabase>.internal(
+final dbProvider = Provider<AppDatabase>.internal(
   db,
   name: r'dbProvider',
   debugGetCreateSourceHash:
@@ -384,6 +384,6 @@ final dbProvider = AutoDisposeProvider<AppDatabase>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef DbRef = AutoDisposeProviderRef<AppDatabase>;
+typedef DbRef = ProviderRef<AppDatabase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

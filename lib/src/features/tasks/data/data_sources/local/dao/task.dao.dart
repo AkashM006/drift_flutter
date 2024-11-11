@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/src/features/shared/data/data_sources/db/database.dart';
 import 'package:drift_flutter/src/features/tasks/data/data_sources/local/schema/task.schema.dart';
-import 'package:drift_flutter/src/features/tasks/data/model/task.model.dart';
 
 part 'task.dao.g.dart';
 
@@ -13,12 +12,7 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
     return select(tasks).get();
   }
 
-  Future<void> addTask(TaskModel task) {
-    return into(tasks).insert(
-      TasksCompanion(
-        name: Value(task.name),
-        description: Value(task.description),
-      ),
-    );
+  Future<void> addTask(TasksCompanion task) {
+    return into(tasks).insert(task);
   }
 }

@@ -4,4 +4,5 @@ import 'package:drift_flutter/src/features/tasks/domain/entity/task.entity.dart'
 abstract class TaskRepository {
   Future<List<TaskEntity>> getTasks();
   Future<DataState<void>> addTask(TaskEntity task);
+  Future<DataState<TaskEntity>> getTask(int id);
 }

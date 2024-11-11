@@ -24,6 +24,12 @@ class TaskImpl extends BaseDbRepository implements TaskRepository {
       () => _taskService.addTask(task),
     );
   }
+
+  @override
+  Future<DataState<TaskEntity>> getTask(int id) {
+    // TODO: implement getTask
+    throw UnimplementedError();
+  }
 }
 
 @riverpod

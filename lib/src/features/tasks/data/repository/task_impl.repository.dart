@@ -35,7 +35,7 @@ class TaskImpl extends BaseDbRepository implements TaskRepository {
   @override
   Future<DataState<void>> editTask(TaskEntity newTask) {
     return safeExecute(
-      () => _taskService.updateTask(newTask),
+      () => _taskService.editTask(newTask),
     );
   }
 }

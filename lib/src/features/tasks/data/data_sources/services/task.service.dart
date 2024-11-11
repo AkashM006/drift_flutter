@@ -29,8 +29,8 @@ class TaskService {
     return result.toEntity();
   }
 
-  Future<void> updateTask(TaskEntity newTask) {
-    return _db.taskDao.updateTask(TaskModel.fromEntity(newTask));
+  Future<void> editTask(TaskEntity newTask) {
+    return _db.taskDao.editTask(TaskModel.fromEntity(newTask));
   }
 }
 

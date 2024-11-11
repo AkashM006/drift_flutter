@@ -50,7 +50,7 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
     );
   }
 
-  Future<void> updateTask(TaskModel newTask) async {
+  Future<void> editTask(TaskModel newTask) async {
     return handleError(
       () async {
         final task = await (select(tasks)

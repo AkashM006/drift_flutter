@@ -41,6 +41,7 @@ class _NewTaskFormWidgetState extends ConsumerState<NewTaskFormWidget> {
 
     if (isEdit) {
       ref.read(editTaskProvider.notifier).go(task);
+      return;
     }
 
     ref.read(addTaskProvider.notifier).go(task);

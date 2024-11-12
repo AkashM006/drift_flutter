@@ -6,7 +6,7 @@ part of 'edit_task.provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$editTaskHash() => r'983bb58b9fa7e04d2e5d5b08d187a34c56cfb047';
+String _$editTaskHash() => r'06a23597b8508cca16909de67999cddedb55fafe';
 
 /// See also [EditTask].
 @ProviderFor(EditTask)

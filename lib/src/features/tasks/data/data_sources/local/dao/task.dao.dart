@@ -50,25 +50,23 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
     );
   }
 
-  Future<void> editTask(TaskModel newTask) async {
-    return handleError(
-      () async {
-        final task = await (select(tasks)
-              ..where((tbl) => tbl.id.equals(newTask.id)))
-            .getSingleOrNull();
+  Future<void> editTask(TaskModel newTask) async => handleError(
+        () async {
+          final task = await (select(tasks)
+                ..where((tbl) => tbl.id.equals(newTask.id)))
+              .getSingleOrNull();
 
-        if (task == null) {
-          final errorMsg = doesNotExistMsg("task you are trying to update");
-          throw AppError(message: errorMsg);
-        }
+          if (task == null) {
+            final errorMsg = doesNotExistMsg("task you are trying to update");
+            throw AppError(message: errorMsg);
+          }
 
-        await (update(tasks)
-              ..where(
-                (tbl) => tbl.id.equals(newTask.id),
-              ))
-            .write(newTask.toCompanion());
-      },
-      "updating your task",
-    );
-  }
+          await (update(tasks)
+                ..where(
+                  (tbl) => tbl.id.equals(newTask.id),
+                ))
+              .write(newTask.toCompanion());
+        },
+        "updating your task",
+      );
 }

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:drift_flutter/src/core/constants/settings.dart';
 import 'package:drift_flutter/src/features/shared/presentation/drift_db.screen.dart';
+import 'package:drift_flutter/src/features/shared/presentation/not_found.screen.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/debug_wrapper/debug_wrapper.widget.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/new_task.screen.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/task_detail.screen.dart';
@@ -15,6 +18,7 @@ enum PAGES {
   taskCreate,
   taskDetail,
   driftDebug,
+  notFound,
 }
 
 extension AppRoutesExtension on PAGES {
@@ -30,6 +34,8 @@ extension AppRoutesExtension on PAGES {
         return '/task-detail';
       case PAGES.driftDebug:
         return '/drift-debug';
+      case PAGES.notFound:
+        return '/*';
     }
   }
 
@@ -45,6 +51,8 @@ extension AppRoutesExtension on PAGES {
         return "Task Detail";
       case PAGES.driftDebug:
         return "Drift Debug";
+      case PAGES.notFound:
+        return "Not Found";
     }
   }
 
@@ -65,10 +73,22 @@ extension AppRoutesExtension on PAGES {
           return TaskDetailScreen(id: idResult);
         };
       case PAGES.driftDebug:
+        return (context, routerState) => const DriftDbScreen();
+      case PAGES.notFound:
+        return (context, routerState) => const NotFoundScreen();
+    }
+  }
+
+  FutureOr<String?> Function(BuildContext context, GoRouterState state)
+      get redirect {
+    switch (this) {
+      case PAGES.driftDebug:
         return (context, routerState) {
-          if (!kDebugMode) throw GoException("Route not found");
-          return const DriftDbScreen();
+          if (!kDebugMode) return PAGES.notFound.path;
+          return null;
         };
+      default:
+        return (context, routerState) => null;
     }
   }
 }
@@ -78,6 +98,7 @@ final List<RouteBase> routes = PAGES.values
       (route) => GoRoute(
         path: route.path,
         name: route.name,
+        redirect: route.redirect,
         builder: (context, state) {
           final child = route.builder(context, state);
           if (kDebugMode &&
@@ -96,4 +117,7 @@ final navigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
   navigatorKey: navigatorKey,
   routes: routes,
+  errorBuilder: (context, state) {
+    return const NotFoundScreen();
+  },
 );

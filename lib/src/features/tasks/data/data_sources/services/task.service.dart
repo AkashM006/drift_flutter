@@ -32,6 +32,10 @@ class TaskService {
   Future<void> editTask(TaskEntity newTask) {
     return _db.taskDao.editTask(TaskModel.fromEntity(newTask));
   }
+
+  Future<void> deleteTask(int taskId) {
+    return _db.taskDao.deleteTask(taskId);
+  }
 }
 
 @riverpod

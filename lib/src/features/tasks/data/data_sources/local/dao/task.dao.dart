@@ -69,4 +69,28 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
         },
         "updating your task",
       );
+
+  Future<void> deleteTask(int taskId) async {
+    handleError(
+      () async {
+        final task =
+            await (select(tasks)..where((tbl) => tbl.id.equals(taskId))).get();
+
+        final errorMsg404 = doesNotExistMsg("task you are trying to delete");
+        final errorMsgMultipleRecords =
+            multipleRecordsFound("delete your task");
+
+        if (task.isEmpty) throw AppError(message: errorMsg404);
+
+        if (task.length > 1) throw AppError(message: errorMsgMultipleRecords);
+
+        await (delete(tasks)
+              ..where(
+                (tbl) => tbl.id.equals(taskId),
+              ))
+            .go();
+      },
+      "deleting your task",
+    );
+  }
 }

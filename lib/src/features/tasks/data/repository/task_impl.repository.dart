@@ -41,8 +41,9 @@ class TaskImpl extends BaseDbRepository implements TaskRepository {
 
   @override
   Future<DataState<void>> deleteTask(int taskId) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+    return safeExecute(
+      () => _taskService.deleteTask(taskId),
+    );
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:drift_flutter/src/core/constants/settings.dart';
 import 'package:drift_flutter/src/features/shared/presentation/drift_db.screen.dart';
 import 'package:drift_flutter/src/features/shared/presentation/widgets/debug_wrapper/debug_wrapper.widget.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/new_task.screen.dart';
@@ -79,7 +80,9 @@ final List<RouteBase> routes = PAGES.values
         name: route.name,
         builder: (context, state) {
           final child = route.builder(context, state);
-          if (kDebugMode && (route.name != PAGES.driftDebug.name)) {
+          if (kDebugMode &&
+              (route.name != PAGES.driftDebug.name) &&
+              !kHideDebugDb) {
             return DebuggerWrapper(child: child);
           }
           return child;

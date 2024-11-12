@@ -28,13 +28,5 @@ class DebuggerWrapper extends StatelessWidget {
         ),
       ],
     );
-    // return Scaffold(
-    //   floatingActionButton: FloatingActionButton(
-    //     backgroundColor: Colors.red,
-    //     onPressed: onDebugDb,
-    //     child: const Icon(Icons.bug_report),
-    //   ),
-    //   body: child,
-    // );
   }
 }

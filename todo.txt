@@ -2,3 +2,5 @@ Todo:
 1. Add validation in db side
 2. Handle screen exit case on create and edit and also the button enabled status
 3. Bug when editing task (DONE)
+4. Handle 404 page
+5. Handle Drift db viewer page (DONE)

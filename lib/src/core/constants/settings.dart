@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
 
-const name = "Task App";
-const seedColor = Colors.red;
+const kName = "Task App";
+const kSeedColor = Colors.red;
+const kHideDebugDb = false;

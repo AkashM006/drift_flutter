@@ -1,7 +1,10 @@
+import 'package:drift_flutter/src/features/shared/presentation/drift_db.screen.dart';
+import 'package:drift_flutter/src/features/shared/presentation/widgets/debug_wrapper/debug_wrapper.widget.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/new_task.screen.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/task_detail.screen.dart';
 import 'package:drift_flutter/src/features/tasks/presentation/tasks.screen.dart';
 import 'package:drift_flutter/src/features/users/presentation/users.screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +13,7 @@ enum PAGES {
   users,
   taskCreate,
   taskDetail,
+  driftDebug,
 }
 
 extension AppRoutesExtension on PAGES {
@@ -23,6 +27,8 @@ extension AppRoutesExtension on PAGES {
         return '/new-task';
       case PAGES.taskDetail:
         return '/task-detail';
+      case PAGES.driftDebug:
+        return '/drift-debug';
     }
   }
 
@@ -36,6 +42,8 @@ extension AppRoutesExtension on PAGES {
         return "New Task";
       case PAGES.taskDetail:
         return "Task Detail";
+      case PAGES.driftDebug:
+        return "Drift Debug";
     }
   }
 
@@ -55,6 +63,11 @@ extension AppRoutesExtension on PAGES {
 
           return TaskDetailScreen(id: idResult);
         };
+      case PAGES.driftDebug:
+        return (context, routerState) {
+          if (!kDebugMode) throw GoException("Route not found");
+          return const DriftDbScreen();
+        };
     }
   }
 }
@@ -64,7 +77,13 @@ final List<RouteBase> routes = PAGES.values
       (route) => GoRoute(
         path: route.path,
         name: route.name,
-        builder: route.builder,
+        builder: (context, state) {
+          final child = route.builder(context, state);
+          if (kDebugMode && (route.name != PAGES.driftDebug.name)) {
+            return DebuggerWrapper(child: child);
+          }
+          return child;
+        },
       ),
     )
     .toList();

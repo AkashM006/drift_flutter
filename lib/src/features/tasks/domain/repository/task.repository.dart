@@ -6,4 +6,5 @@ abstract class TaskRepository {
   Future<DataState<void>> addTask(TaskEntity task);
   Future<DataState<TaskEntity>> getTask(int id);
   Future<DataState<void>> editTask(TaskEntity newTask);
+  Future<DataState<void>> deleteTask(int taskId);
 }
